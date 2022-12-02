@@ -5,11 +5,53 @@ using std::cin;
 using std::cout;
 using std::endl;
 
-int rownanie_kwadratowe(double a, double b, double c, double* rozw1, double* rozw2) {
-	return 0;
-}
+void rownanie_kwadratowe(double a, double b, double c, double* rozw1, double* rozw2) {
+	double delta = 0.;
 
+	if (a == 0.0) {// jezeli a= 0 to rownanie staje sie liniowym
+		if (rozw1 != nullptr) {
+			*rozw1 = -c / b;
+		}
+		else if (c != 0.0){
+			cout << "Brak rozwiazan!" << endl;
+		}
+	}
+	else {
+		delta = (b * b) - 4 * a * c;
+	}
+	if (delta < 0){
+		cout << "Brak rozwiazan!" << endl;
+	}
+	else if (delta == 0){
+		if (rozw1 != nullptr){
+			*rozw1 = (-b) / 2 * a;
+		}
+	}
+	else
+	{
+		*rozw1 = (-b + sqrt(delta)) / 2 * a;
+		*rozw2 = (-b - sqrt(delta)) / 2 * a;
+	}
+}
 int zadanie1() {
+	double a = 1.;
+	double b = 6.;
+	double c = 6.;
+	double rozw1 = 0.;
+	double rozw2 = 0.;
+
+	rownanie_kwadratowe(a, b, c, &rozw1, &rozw2);
+
+	if (rozw1 != 0 && rozw2 != 0){
+		cout << "Rozwiaznie 1: " << rozw1 << " Rozwiazanie 2:" << rozw2 << endl;
+	}
+	else if (rozw1 != 0 && rozw2 == 0) {
+		cout << "Rozwiazanie 1: " << rozw1 << endl;
+	}
+	else {
+		cout << "Brak rozwiazan!" << endl;
+	}
+
 //1. Napisz funkcje
 //int rownanie_kwadratowe(double a, double b, double c, double* rozw1, double* rozw2)
 //ktora zwroci informacje ile rozwiazan ma rownanie postaci
@@ -150,8 +192,49 @@ int zadanie7() {
 	return 0;
 }
 
+int sort(int tab[],int roz) {
+	int valid = 1;
+	int buffer = 0;
+	for (int i = 0; i < roz -1 ; i++)
+	{
+		if (tab[i] < tab[i + 1]){
+			++valid;
+		}
+		if (tab[i] > tab[i + 1]) {
+			buffer = tab[i];
+			tab[i] = tab[i+1];
+			tab[i+1] = buffer;
+		}
+	}
+
+	if (valid == roz)
+	{
+		return 0;
+	}
+	else return 1;
+}
 int zadanie8() {
-	//8. Napisz funkcje sortuj(), ktora przyjmie tablice i jej rozmiar, a nastepnie posortuje zawartosc tablicy dowolnym wybranym algorytmem sortowania roznym od babelkowego.Sugerowane algorytmy :
+	const int roz = 15;
+	int valid = 0;
+	int tab[roz]{ 300,94,28,27,54,7,32,41,21,80,82,64,100,90,1 };
+
+	cout << "Before sort: ";
+	for (int i = 0; i < roz; i++)
+	{
+		cout << tab[i] << " ";
+	}
+	cout << endl;
+
+	while (sort(tab, roz)) {
+		for (int i = 0; i < roz; i++){
+		cout << tab[i] << " ";
+		}
+	cout << endl;
+		
+	}
+	
+	//8. Napisz funkcje sortuj(), ktora przyjmie tablice i jej rozmiar, a nastepnie posortuje zawartosc tablicy dowolnym wybranym algorytmem sortowania
+	//roznym od babelkowego.Sugerowane algorytmy :
 	//https://pl.wikipedia.org/wiki/Sortowanie_przez_wybieranie
 	//https://pl.wikipedia.org/wiki/Sortowanie_przez_wstawianie
 	//Duza lista algorytmow sortujacych dostepna jest tu :
@@ -162,11 +245,11 @@ int zadanie8() {
 
 int main() {
 	zadanie1();
-	zadanie2();//ok
-	zadanie3();//ok
-	zadanie4();//ok
-	zadanie5();//ok
-	zadanie6();//ok
-	zadanie7();//ok
+	zadanie2();
+	zadanie3();
+	zadanie4();
+	zadanie5();
+	zadanie6();
+	zadanie7();
 	zadanie8();
 }
