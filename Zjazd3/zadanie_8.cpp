@@ -95,17 +95,14 @@ private:
 
 
 
-
-
-
-
 int main() {
 	Robot robert;
 	string comenda;
 
 	robert.wypisz();
 
-	comenda = "NNPNLNPP";
+	// comenda = "NNPNLNPP";
+	cin >> comenda;
 	robert.wykonaj(comenda);
 	robert.wypisz();
 }	
